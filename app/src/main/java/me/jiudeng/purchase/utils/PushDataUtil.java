@@ -21,7 +21,7 @@ public class PushDataUtil {
     public static void pushData(Context context){
         final String fileContent = FileUtil.readFile(context);
         Log.d(TAG, "定时上传 当前数据 fileContent =" + fileContent);
-        if (!TextUtils.isEmpty(fileContent)) {
+        if (!TextUtils.isEmpty(fileContent) && !(fileContent.equals("[]"))) {
             final String data = "PurchaseInfo="+PushDataUtil.createPushData(fileContent);
             HttpUtil.postDataToServer(HttpUtil.addressPushData, data, new OnResponseListener() {
                 @Override

@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // TODO: 2016/4/5 先判断本地数据是否存在，存在则加载本地数据，否则请求网络数据
         String fileContent = FileUtil.readFile(MainActivity.this);
         Log.d(TAG, "初始化数据...");
-        if (!(TextUtils.isEmpty(fileContent)) && !(fileContent == null) && !(fileContent.equals("[]"))) {
+        if (!(TextUtils.isEmpty(fileContent))  && !(fileContent.equals("[]"))) {
             loadLocalData(fileContent);
         } else {
             requestDataFromService();
