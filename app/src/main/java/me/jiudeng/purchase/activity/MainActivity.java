@@ -56,14 +56,14 @@ import me.jiudeng.purchase.view.SideBar;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final int REFRESH_SUM = 5;
-    private static final int SHOW_MESSAGE = 6;
     private static String TAG = "MainActivity";
     private static final int REFRESH_DATA = 0;
     private static final int SEND_SUCCESS = 1;
     private static final int SEND_FAIL = 2;
     private static final int PRICE_PUR = 3;
     private static final int MOUNT_PUR = 4;
+    private static final int REFRESH_SUM = 5;
+    private static final int SHOW_MESSAGE = 6;
 
     /**
      * Views
@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void loadLocalData(String fileContent) {
         try {
-            paraseJsonData(fileContent.toString());
+            paresJsonData(fileContent.toString());
             Log.d(TAG, "成功读取本地文件数据，fileContent = " + fileContent);
             message.what = REFRESH_DATA;
             mHandler.sendMessage(message);
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     object = new JSONObject(response);
 
                     if (object.getInt("Code") == 0) {
-                        paraseJsonData(object.getString("Data"));     //解析数据，添加到list中
+                        paresJsonData(object.getString("Data"));     //解析数据，添加到list中
                         Log.d(TAG, "response = " + response.toString());
 //                    addTestData();
                         message.what = REFRESH_DATA;
@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return usr;
     }
 
-    private void paraseJsonData(String data) throws JSONException {
+    private void paresJsonData(String data) throws JSONException {
         Gson gson = new Gson();
         mPurchaseList = gson.fromJson(data, new TypeToken<List<PurchaseData>>() {
         }.getType());
