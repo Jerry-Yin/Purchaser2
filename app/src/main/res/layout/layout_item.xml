@@ -16,6 +16,7 @@
         android:layout_weight="0.3"
         android:gravity="center"
         android:paddingLeft="6dp"
+        android:text="@string/zero"
         android:textSize="10sp" />
 
     <LinearLayout
@@ -201,6 +202,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 </LinearLayout>

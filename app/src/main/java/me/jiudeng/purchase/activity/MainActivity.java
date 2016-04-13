@@ -57,6 +57,7 @@ import me.jiudeng.purchase.view.SideBar;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int REFRESH_SUM = 5;
+    private static final int SHOW_MESSAGE = 6;
     private static String TAG = "MainActivity";
     private static final int REFRESH_DATA = 0;
     private static final int SEND_SUCCESS = 1;
@@ -156,6 +157,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         message.what = REFRESH_DATA;
                         message.obj = response;
                         mHandler.sendMessage(message);
+                    }else {
+                        message.what = SHOW_MESSAGE;
+                        message.obj = object.getString("Message");
+                        mHandler.sendMessage(message);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -202,6 +207,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mListAdapter.notifyDataSetChanged();
                     saveDataToFile();//请求成功后将数据保存到本地
                     new TimeTaskUtil(MainActivity.this).startTimeTask();   //开启定时上传功能
+                    break;
+
+                case SHOW_MESSAGE:
+                    Toast.makeText(MainActivity.this, msg.obj.toString(), Toast.LENGTH_LONG).show();
                     break;
 
                 case SEND_SUCCESS:
