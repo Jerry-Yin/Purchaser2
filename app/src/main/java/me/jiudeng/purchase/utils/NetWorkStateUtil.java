@@ -2,8 +2,6 @@ package me.jiudeng.purchase.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.telephony.TelephonyManager;
 
 /**
  * Created by Yin on 2016/3/31.

@@ -82,12 +82,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CharacterParser mCharacterParser; //汉字转换成拼音的类
     private PinyinComparator mPinyinComparator; //根据拼音来排列ListView里面的数据类
     private Message message = new Message();
+    private boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
         initViews();
+        addTestData();
         initData();
     }
 
@@ -453,7 +455,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            holder.tvMountDing.setText(String.valueOf(purchaseData.getNeedNumbre()));
             holder.tvMountDing.setText(String.valueOf(FormatNumberUtil.formatFloatNumber(purchaseData.getNeedNumbre())));
             float moneyLine = purchaseData.getSellPrice() / 1000 * purchaseData.getNeedNumbre();
-            holder.tvMoneyLine.setText(String.valueOf(moneyLine));
+            holder.tvMoneyLine.setText(String.valueOf(FormatNumberUtil.formatFloatNumber(moneyLine)));
             holder.etMountPur.setText(String.valueOf(purchaseData.getMountPur()));
 
             float mountPur = Float.valueOf(holder.etMountPur.getText().toString());
@@ -533,7 +535,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         }
                     } else {
                         if (mEt.getText().toString().equals("0.0")) {
-                            mEt.setText("");
+//                            if (isEditing){
+//                                mEt.setText("");
+//                            }
                         }
                     }
                 }
@@ -547,6 +551,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            if (mEt.getText().toString().equals("0.0")){
+//                mEt.setText("1");
+//            }
+
+            //限制只能输入两位小数
+            if (s.toString().contains(".")) {
+                if (s.length() - 1 - s.toString().indexOf(".") > 2) {
+                    s = s.toString().subSequence(0,
+                            s.toString().indexOf(".") + 3);
+                    mEt.setText(s);
+                    mEt.setSelection(s.length());
+                }
+            }
+            if (s.toString().trim().substring(0).equals(".")) {
+                s = "0" + s;
+                mEt.setText(s);
+                mEt.setSelection(2);
+            }
+
+            if (s.toString().startsWith("0")
+                    && s.toString().trim().length() > 1) {
+                if (!s.toString().substring(1, 2).equals(".")) {
+                    mEt.setText(s.subSequence(0, 1));
+                    mEt.setSelection(1);
+                    return;
+                }
+            }
         }
 
         /**
@@ -563,6 +594,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (s.toString().equals(textBefore)) {
                 return;
             } else {
+
                 Log.d(TAG, " txtBefore = " + textBefore);
                 Log.d(TAG, " S = " + s);
                 Log.d(TAG, " boolean = " + s.toString().equals(textBefore));
@@ -570,6 +602,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 String montPur = String.valueOf(mPurchaseList.get(viewHolder.key).getMountPur());
                 View view = (View) mEt.getParent().getParent();
                 if (flag == PRICE_PUR) {
+//                    isEditing = true;
                     Log.d(TAG, " flag1 = " + flag);
                     Log.d(TAG, " key = " + viewHolder.key);
                     if (!pricePur.equals(s.toString()) && !s.toString().equals(".")) {
@@ -581,6 +614,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 }
                 if (flag == MOUNT_PUR) {
+//                    isEditing = true;
                     Log.d(TAG, " flag2 = " + flag);
                     if (!montPur.equals(s.toString()) && !s.toString().equals(".")) {
                         Log.d(TAG, " holder.key = " + viewHolder.key);
@@ -592,6 +626,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 }
             }
+//            isEditing = false;
             setSumData();
             float money = mPurchaseList.get(viewHolder.key).getBuyPrice()/1000 * mPurchaseList.get(viewHolder.key).getMountPur();
             viewHolder.tvMoneyPur.setText(FormatNumberUtil.formatFloatNumber(money));

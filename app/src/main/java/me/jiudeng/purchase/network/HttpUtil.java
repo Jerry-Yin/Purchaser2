@@ -23,12 +23,12 @@ import me.jiudeng.purchase.listener.OnResponseListener;
 public class HttpUtil {
 
     private static final String TAG = "HttpUtil";
-//    public static String addressGetData = "http://10.0.0.165:9999/warehouseorder/OperatorPurchase";  //请求数据服务器地址
-//    public static String addressPushData = "http://10.0.0.165:9999/warehouseorder/PurchaseTruthInfo";  //提交数据服务器地址
-//    public static String addressUsr = "http://10.0.0.165:9999/warehouseorder/loginnormal";    //账户验证地址
-    public static String addressGetData = "http://ck.jiudeng.net/warehouseorder/OperatorPurchase";  //请求数据服务器地址
-    public static String addressPushData = "http://ck.jiudeng.net/warehouseorder/PurchaseTruthInfo";  //提交数据服务器地址
-    public static String addressUsr = "http://ck.jiudeng.net/warehouseorder/loginnormal";    //账户验证地址
+    public static String addressGetData = "http://10.0.0.165:9999/warehouseorder/OperatorPurchase";  //请求数据服务器地址
+    public static String addressPushData = "http://10.0.0.165:9999/warehouseorder/PurchaseTruthInfo";  //提交数据服务器地址
+    public static String addressUsr = "http://10.0.0.165:9999/warehouseorder/loginnormal";    //账户验证地址
+//    public static String addressGetData = "http://ck.jiudeng.net/warehouseorder/OperatorPurchase";  //请求数据服务器地址
+//    public static String addressPushData = "http://ck.jiudeng.net/warehouseorder/PurchaseTruthInfo";  //提交数据服务器地址
+//    public static String addressUsr = "http://ck.jiudeng.net/warehouseorder/loginnormal";    //账户验证地址
 
     /**
      * 请求数据

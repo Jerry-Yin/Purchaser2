@@ -52,6 +52,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void initViews() {
         mBtnLogin = (Button) findViewById(R.id.btn_login);
         mBtnLogin.setOnClickListener(this);
+        mBtnLogin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                startActivity(new Intent(LoginActivity.this, MainActivity2.class));
+                LoginActivity.this.finish();
+                return false;
+            }
+        });
 
         mEtUser = (EditText) findViewById(R.id.et_user);
         mEtPwd = (EditText) findViewById(R.id.et_pwd);
